@@ -35,11 +35,13 @@ class SmokeTest(BaseSmokeTest):
         :param verify_loop_sleep_time: Sleep time between verifications
         :param verification_count: Number of times the verification needs to take place
         :param kill_realization_timeout: Let ambari realize the process has been killed to prevent the start command
-        :param filter_component_state: Filter out component by state (e.g. "ACTIVE"/"STANDBY") when picking random host to shutdown
-        being ignored
+        :param filter_component_state: Filter out component by state (e.g. "ACTIVE"/"STANDBY") when picking random host
+        to shutdown being ignored
         """
 
-        super().__init__(component, logname=logname, stop_type=stop_type, process_user=process_user, process_indicator=process_indicator, stop_realization_timeout=stop_realization_timeout, verify_loop_sleep_time=verify_loop_sleep_time, verification_count=verification_count)
+        super().__init__(component, logname=logname, stop_type=stop_type, process_user=process_user,
+                         process_indicator=process_indicator, stop_realization_timeout=stop_realization_timeout,
+                         verify_loop_sleep_time=verify_loop_sleep_time, verification_count=verification_count)
         self.service = service
         self.kill_realization_timeout = kill_realization_timeout
         self.filter_component_state = filter_component_state
@@ -71,7 +73,8 @@ class SmokeTest(BaseSmokeTest):
             info = {}
             host_hastate = self.ambari.get_component_host_hastate(self.service, self.component)
             filter_hosts = [host for host, hastate in host_hastate.items() if hastate == self.filter_component_state]
-            info['host_components'] = [host for host in components['host_components'] if host['HostRoles']['host_name'] not in filter_hosts]
+            info['host_components'] = [host for host in components['host_components'] if
+                                       host['HostRoles']['host_name'] not in filter_hosts]
         else:
             info = components
 
@@ -92,8 +95,8 @@ class SmokeTest(BaseSmokeTest):
         self.logger.info("Starting the previously stopped {0}".format(self.component))
         if self.stop_type == 'KILL':
             self.logger.info(
-                            "Wait a while for AMBARI to realize that the component is down " +
-                            "otherwise it will just ignore the start request")
+                "Wait a while for AMBARI to realize that the component is down " +
+                "otherwise it will just ignore the start request")
             time.sleep(self.kill_realization_timeout)
         self.ambari.change_host_component_state_and_wait(location, state='STARTED')
         self.logger.info("Started the {0}".format(self.component))

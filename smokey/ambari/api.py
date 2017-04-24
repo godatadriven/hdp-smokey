@@ -2,11 +2,9 @@ import json
 import logging
 import os
 import random
-import signal
-import sys
-import time
-
 import requests
+import signal
+import time
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -176,7 +174,8 @@ class Api:
         master_info = self.get_component_info('HBASE', 'HBASE_MASTER')
 
         for host in master_info['host_components']:
-            state_info = self.request_ambari("{0}?fields=metrics/hbase/master/IsActiveMaster".format(host['href'])).json()
+            state_info = self.request_ambari(
+                "{0}?fields=metrics/hbase/master/IsActiveMaster".format(host['href'])).json()
             if state_info['metrics']['hbase']['master']['IsActiveMaster'] == isActiveMaster:
                 return state_info['HostRoles']['host_name']
 

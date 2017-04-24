@@ -1,3 +1,4 @@
+# flake8: noqa
 import unittest
 import logging
 from unittest.mock import MagicMock
@@ -85,4 +86,3 @@ class TestHdfsApplicationRunner(unittest.TestCase):
         with self.assertRaises(runner.MrRequestError):
             self.mrgen._check_output(process.stdout, process.stderr)
             self.mrsort._check_output(process.stdout, process.stderr)
-

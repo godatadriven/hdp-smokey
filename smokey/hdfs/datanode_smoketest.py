@@ -24,4 +24,3 @@ class DatanodeSmokeTest(base.SmokeTest):
                                    host['HostRoles']['host_name'] == datanode_host]
 
         return self.ambari.get_random_host_and_component_path(info)
-

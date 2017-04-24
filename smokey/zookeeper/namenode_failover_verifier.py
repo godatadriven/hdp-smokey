@@ -5,7 +5,6 @@ from core import base
 
 
 class NamenodeFailoverVerifier(HdfsVerifier):
-
     def __init__(self, logger, filename='hdfs_verifier_file.txt', filesize=324, ambari=None):
         super().__init__(logger)
         self.ambari = ambari

@@ -1,3 +1,4 @@
+# flake8: noqa
 import unittest
 from unittest.mock import Mock, patch
 
@@ -206,18 +207,18 @@ class TestAmbariApi(unittest.TestCase):
                                          'total_count': 2, 'cluster_name': 'Sandbox', 'recovery_enabled': 'false',
                                          'init_count': 0, 'installed_count': 0, 'category': 'MASTER',
                                          'started_count': 2, 'install_failed_count': 0}, 'host_components': [{
-                                         'HostRoles': {
-                                            'component_name': 'KRIS_GATEWAY',
-                                            'host_name': 'sandbox.hortonworks.com'},
-                                            'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/hosts/sandbox.hortonworks.com/host_components/KRIS_GATEWAY'
-                                         },
-                                         { 'HostRoles': {
-                                                  'component_name': 'KRIS_GATEWAY',
-                                                  'cluster_name': 'Sandbox',
-                                                  'host_name': 'sandbox.hortonworks.com'},
-                                                  'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/hosts/sandbox.hortonworks.com/host_components/KRIS_GATEWAY'}],
-                                                  'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/services/KRIS/components/KRIS_GATEWAY'
-                                         }
+            'HostRoles': {
+                'component_name': 'KRIS_GATEWAY',
+                'host_name': 'sandbox.hortonworks.com'},
+            'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/hosts/sandbox.hortonworks.com/host_components/KRIS_GATEWAY'
+        },
+            {'HostRoles': {
+                'component_name': 'KRIS_GATEWAY',
+                'cluster_name': 'Sandbox',
+                'host_name': 'sandbox.hortonworks.com'},
+                'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/hosts/sandbox.hortonworks.com/host_components/KRIS_GATEWAY'}],
+                'href': 'https://sandbox.hortonworks.com:8443/api/v1/clusters/Sandbox/services/KRIS/components/KRIS_GATEWAY'
+                }
         hosts = self.ambari.get_sample_hosts(info, k=1)
         for host in hosts:
             self.assertIn(host, ['sandbox.hortonworks.com', 'sandbox.hortonworks.com'])

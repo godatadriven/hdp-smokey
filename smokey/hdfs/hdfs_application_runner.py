@@ -1,7 +1,4 @@
-import logging
 import re
-import sys
-import os
 import glob
 
 import core.application_runner as runner
@@ -16,9 +13,9 @@ class MrRequestError(runner.ApplicationRequestError):
 
 
 class SparkHdfsTestRunner(runner.SparkApplicationRunner):
-
     def _get_application_args(self):
-        example_jars = glob.glob("/usr/hdp/current/{0}/{1}/spark-examples*.jar".format(self.client_dir, self.jar_location))
+        example_jars = glob.glob(
+            "/usr/hdp/current/{0}/{1}/spark-examples*.jar".format(self.client_dir, self.jar_location))
         if len(example_jars) > 0:
             jar = example_jars[0]
         else:
@@ -66,4 +63,3 @@ class MrTerasortRunner(runner.MrApplicationRunner):
         if match_err is None and match_out is None:
             self.logger.error("Terasort with mr-submit returned wrong output. Output: {0}".format(output))
             raise MrRequestError("Terasort with mr-submit returned wrong output.")
-

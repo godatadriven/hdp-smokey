@@ -1,6 +1,6 @@
 import unittest
 import logging
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import MagicMock
 import subprocess
 
 import spark.spark_runner as spark

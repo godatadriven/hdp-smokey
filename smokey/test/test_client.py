@@ -5,8 +5,8 @@ import paramiko
 
 import ssh.client as ssh_client
 
-class TestSsh(unittest.TestCase):
 
+class TestSsh(unittest.TestCase):
     @patch('paramiko.client.SSHClient', MagicMock)
     def setUp(self):
         self.ssh = ssh_client.ssh('localhost')
@@ -26,7 +26,8 @@ class TestSsh(unittest.TestCase):
     def test_connection_called(self):
         with patch.dict('ssh.client.os.environ', {'AMBARI_PWD': 'blah'}):
             self.ssh.initConnection()
-            self.ssh.client.connect.assert_called_once_with('localhost', look_for_keys= False, password='blah', username= 'smoketest')
+            self.ssh.client.connect.assert_called_once_with('localhost', look_for_keys=False, password='blah',
+                                                            username='smoketest')
 
     def test_connection_called_on_sending_first_command(self):
         with patch.dict('ssh.client.os.environ', {'AMBARI_PWD': 'blah'}):
@@ -44,7 +45,8 @@ class TestSsh(unittest.TestCase):
             output, status, errors = self.ssh.sendCommand('whoami')
 
             # Assertions
-            self.ssh.client.connect.assert_called_once_with('localhost', look_for_keys= False, password='blah', username= 'smoketest')
+            self.ssh.client.connect.assert_called_once_with('localhost', look_for_keys=False, password='blah',
+                                                            username='smoketest')
             self.ssh.client.exec_command.assert_called_once_with('whoami')
             self.ssh.client.close.assert_called_with()
             self.assertEqual(status, 21)
@@ -67,7 +69,8 @@ class TestSsh(unittest.TestCase):
             output, status, errors = self.ssh.sendCommand('whoami')
 
             # Assertions
-            self.ssh.client.connect.assert_called_with('localhost', look_for_keys= False, password='blah', username= 'smoketest')
+            self.ssh.client.connect.assert_called_with('localhost', look_for_keys=False, password='blah',
+                                                       username='smoketest')
             self.ssh.client.exec_command.assert_called_with('whoami')
             self.ssh.client.close.assert_called_with()
             self.assertEqual(status, 42)
@@ -75,9 +78,9 @@ class TestSsh(unittest.TestCase):
 
             output2, status2, errors2 = self.ssh.sendCommand('whoami2')
             # Assertions
-            self.ssh.client.connect.assert_called_with('localhost', look_for_keys= False, password='blah', username= 'smoketest')
+            self.ssh.client.connect.assert_called_with('localhost', look_for_keys=False, password='blah',
+                                                       username='smoketest')
             self.ssh.client.exec_command.assert_called_with('whoami2')
             self.ssh.client.close.assert_called_with()
             self.assertEqual(status2, 42)
             self.assertEqual(output2[1], 'Sitting next to pearl!')
-

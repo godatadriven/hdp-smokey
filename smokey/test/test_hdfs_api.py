@@ -1,3 +1,4 @@
+# flake8: noqa
 import unittest
 from unittest.mock import Mock, patch
 
@@ -73,7 +74,8 @@ Fsck on path '/user/tester/subdir/20161221/host.hortonworks.com.log' FAILED"
 
     def test_get_first_block_info(self):
         expected = "0. BP-1605498153-192.168.0.241-1426773903491:blk_1084465072_10763065 len=134217728 repl=3 [/Group1/DC1-X/RACK1/192.168.2.32:1019, /Group1/DC1-X/RACK1/192.168.2.29:1019, /Group1/DC1-X/RACK1/192.168.2.14:1019]"
-        blockinfo = self.hdfs.get_first_block_info("/user/tester/subdir/20161221/host.hortonworks.com.log", self.correct_output)
+        blockinfo = self.hdfs.get_first_block_info("/user/tester/subdir/20161221/host.hortonworks.com.log",
+                                                   self.correct_output)
         self.assertEqual(expected, blockinfo)
 
     def test_get_first_block_info_from_empty_response(self):

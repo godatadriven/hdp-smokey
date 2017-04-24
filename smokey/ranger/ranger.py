@@ -12,7 +12,6 @@ class RangerRequestError(Exception):
 
 
 class Ranger:
-
     def __init__(self, request_timeout=10):
         self.timeout = request_timeout
         self.ranger_schema = os.environ.get('RANGER_SCHEMA', 'http')
@@ -57,7 +56,7 @@ class Ranger:
     @logmethodcall
     def verify_ranger_response(self, response):
         if response.status_code != 200:
-            self.logger.error("RangerResponse returned with error status [{0}], response was: {1}".format(response.status_code, response.text))
+            self.logger.error(
+                "RangerResponse returned with error status [{0}], response was: {1}".format(response.status_code,
+                                                                                            response.text))
             raise RangerRequestError("RangerResponse returned with error status [{0}]".format(response.status_code))
-
-

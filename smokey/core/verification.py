@@ -21,5 +21,3 @@ class Verifier:
         """
         self.logger.info("Verify functionality")
         raise VerificationError("Error verifying functionality")
-
-

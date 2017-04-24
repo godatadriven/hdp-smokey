@@ -1,6 +1,4 @@
-import logging
 import re
-import sys
 
 import core.application_runner as runner
 

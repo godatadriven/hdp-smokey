@@ -1,3 +1,4 @@
+# flake8: noqa
 import unittest
 import logging
 from unittest.mock import MagicMock
@@ -98,5 +99,3 @@ class TestHiveRunner(unittest.TestCase):
         process = MagicMock(spec=subprocess.CompletedProcess, args=["test"], returncode=2, stdout=b'', stderr=stderr)
         with self.assertRaises(hive.HiveRequestError):
             self.hive._check_output(process.stdout, process.stderr)
-
-

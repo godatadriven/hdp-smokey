@@ -1,4 +1,3 @@
-import os
 import sys
 import logging
 
@@ -46,7 +45,9 @@ if __name__ == "__main__":
                 ambari.check_if_all_components_started('HDFS', 'NAMENODE'):
             logger.info("Both HDFS namenodes and Ranger admin are in normal state. Starting smoke test.")
             rnd_ranger_host, rnd_ranger_component = ambari.get_random_host_and_component_path(ranger_admin_ambari_info)
-            logger.info("Selected random Ranger admin host & components for this test: {0}, {1}".format(rnd_ranger_host, rnd_ranger_component))
+            logger.info("Selected random Ranger admin host & components for this test: {0}, {1}"
+                        .format(rnd_ranger_host,
+                                rnd_ranger_component))
 
             logger.info("Stopping Ranger admin")
             ambari.change_host_component_state_and_wait(rnd_ranger_component, state='INSTALLED')
@@ -59,8 +60,12 @@ if __name__ == "__main__":
             logger.info("Stopped the standby namenode")
 
             namenode_start_timeout = 1800
-            logger.debug("Starting the previously stopped namenode. In HDP 2.5 this takes +-12 minutes since Ranger is first polled 75 times. Set max timeout to {0} minutes.".format(namenode_start_timeout/60))
-            ambari.change_host_component_state_and_wait(standby_namenode_path, state='STARTED', polling_timeout=namenode_start_timeout)
+            logger.debug(
+                "Starting the previously stopped namenode. In HDP 2.5 this takes +-12 minutes" +
+                " since Ranger is first polled 75 times. Set max timeout to {0} minutes.".format(
+                    namenode_start_timeout / 60))
+            ambari.change_host_component_state_and_wait(standby_namenode_path, state='STARTED',
+                                                        polling_timeout=namenode_start_timeout)
             logger.debug("Started the namenode")
 
             logger.debug("Starting the previously stopped Ranger admin")

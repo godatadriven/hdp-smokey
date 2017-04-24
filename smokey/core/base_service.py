@@ -36,7 +36,9 @@ class ServiceSmokeTest(BaseSmokeTest):
         :param verify_loop_sleep_time: Sleep time between verifications
         :param verification_count: Number of times the verification needs to take place
         """
-        super().__init__(component, logname=logname, stop_type=stop_type, process_user=process_user, process_indicator=process_indicator, stop_realization_timeout=stop_realization_timeout, verify_loop_sleep_time=verify_loop_sleep_time, verification_count=verification_count)
+        super().__init__(component, logname=logname, stop_type=stop_type, process_user=process_user,
+                         process_indicator=process_indicator, stop_realization_timeout=stop_realization_timeout,
+                         verify_loop_sleep_time=verify_loop_sleep_time, verification_count=verification_count)
         self.hosts = hosts
 
     def _all_started(self):
@@ -89,4 +91,3 @@ class ServiceSmokeTest(BaseSmokeTest):
             cmd.call_service_action(self.component, 'start')
         except service.command.ServiceActionError as e:
             raise ServiceActionError(e)
-

@@ -9,9 +9,9 @@ class SparkRequestError(runner.ApplicationRequestError):
 
 
 class SparkPiRunner(runner.SparkApplicationRunner):
-
     def _get_application_args(self):
-        example_jars = glob.glob("/usr/hdp/current/{0}/{1}/spark-examples*.jar".format(self.client_dir, self.jar_location))
+        example_jars = glob.glob(
+            "/usr/hdp/current/{0}/{1}/spark-examples*.jar".format(self.client_dir, self.jar_location))
         if len(example_jars) > 0:
             jar = example_jars[0]
         else:
@@ -27,4 +27,3 @@ class SparkPiRunner(runner.SparkApplicationRunner):
         if match is None:
             self.logger.error("Calculating PI with spark-submit returned wrong output. Output: {0}".format(output))
             raise SparkRequestError("Calculating PI with spark-submit returned wrong output.")
-

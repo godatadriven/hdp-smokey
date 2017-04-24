@@ -11,4 +11,3 @@ class NamenodeSmokeTest(base.SmokeTest):
                           hdfs_verifiers.HdfsMrVerifier(logger=self.logger, ambari=self.ambari),
                           hdfs_verifiers.HdfsSparkVerifier(logger=self.logger),
                           hdfs_verifiers.HdfsSparkVerifier(logger=self.logger, spark2=True)]
-

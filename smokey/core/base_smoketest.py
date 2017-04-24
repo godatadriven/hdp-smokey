@@ -184,27 +184,7 @@ class BaseSmokeTest:
                 self.logger.info("Stopping the {0} on {1}".format(self.component, rnd_host))
                 self._stop_component(rnd_host, rnd_component_location)
                 try:
-                    # loop
-                    counter = self.verification_count
-                    time.sleep(self.stop_realization_timeout)  # wait for other components to realize the component
-                    # is stopped to prevent the verifier from returning error
-                    while counter > 0:
-                        for verifier in self._get_verifiers():
-                            verifier.verify()
-                        counter -= 1
-                        time.sleep(self.verify_loop_sleep_time)
-
-                    # end loop
-                    self.logger.info("Starting the previously stopped {0}".format(self.component))
-
-                    self.start_component(rnd_host, rnd_component_location)
-                    self.logger.info("Started the {0}".format(self.component))
-                    self.logger.info(
-                        "All {0} components in normal state? {1}".format(self.component, self._all_started()))
-
-                    self.logger.info("Final check of {0} with the verifier".format(self.component))
-                    for verifier in self._get_verifiers():
-                        verifier.verify()
+                    self.do_verifications(rnd_component_location, rnd_host)
 
                 except VerificationError as ve:
                     self.logger.error("Verifier result {0}".format(str(ve)))
@@ -224,3 +204,24 @@ class BaseSmokeTest:
             if type(e) is KillError:
                 self.logger.error("Error stopping process with kill!!")
             sys.exit(1)
+
+    def do_verifications(self, rnd_component_location, rnd_host):
+        # loop
+        counter = self.verification_count
+        time.sleep(self.stop_realization_timeout)  # wait for other components to realize the component
+        # is stopped to prevent the verifier from returning error
+        while counter > 0:
+            for verifier in self._get_verifiers():
+                verifier.verify()
+            counter -= 1
+            time.sleep(self.verify_loop_sleep_time)
+
+        # end loop
+        self.logger.info("Starting the previously stopped {0}".format(self.component))
+        self.start_component(rnd_host, rnd_component_location)
+        self.logger.info("Started the {0}".format(self.component))
+        self.logger.info(
+            "All {0} components in normal state? {1}".format(self.component, self._all_started()))
+        self.logger.info("Final check of {0} with the verifier".format(self.component))
+        for verifier in self._get_verifiers():
+            verifier.verify()

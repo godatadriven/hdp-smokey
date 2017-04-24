@@ -24,7 +24,9 @@ class Command:
 
     def get_pid_from_ps_output(self, output):
         if type(output) is not list:
-            self.logger.debug("Command output was not of expected type list. Type was {0}, Content was '{1}'".format(type(output), output))
+            self.logger.debug(
+                "Command output was not of expected type list. Type was {0}, Content was '{1}'".format(type(output),
+                                                                                                       output))
             raise UnknownPidError("Command output was not of expected type list.")
 
         if len(output) == 0:
@@ -33,7 +35,9 @@ class Command:
 
         columns = output[0].split()
         if len(columns) < 2:
-            self.logger.debug("Command output was not of expected size. Size was {0}. Content was '{1}'".format(len(columns), columns))
+            self.logger.debug(
+                "Command output was not of expected size. Size was {0}. Content was '{1}'".format(len(columns),
+                                                                                                  columns))
             raise UnknownPidError("Command output was not of expected size. Expected at least 2 elements.")
 
         return columns[1]

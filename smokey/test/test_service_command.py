@@ -6,7 +6,6 @@ import service.command as service_command
 
 
 class TestCommand(unittest.TestCase):
-
     def setUp(self):
         self.command = service_command.Command('localhost', logging)
 

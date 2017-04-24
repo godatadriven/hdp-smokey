@@ -23,7 +23,8 @@ class ApplicationRunner:
         try:
             app = subprocess.run(
                 self.application_args,
-                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=self.timeout, env=self._get_application_env())
+                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=self.timeout,
+                env=self._get_application_env())
             self._check_run_status(app)
             self._check_output(app.stdout, app.stderr)
         except subprocess.TimeoutExpired as toe:
@@ -49,30 +50,32 @@ class SparkApplicationRunner(ApplicationRunner):
         if spark2:
             self.client_dir = "spark2-client"
             self.jar_location = "examples/jars"
-            self.spark_env = {"SPARK_MAJOR_VERSION":"2"}
+            self.spark_env = {"SPARK_MAJOR_VERSION": "2"}
         else:
             self.client_dir = "spark-client"
             self.jar_location = "lib"
-            self.spark_env = {"SPARK_MAJOR_VERSION":"1"}
+            self.spark_env = {"SPARK_MAJOR_VERSION": "1"}
 
         super().__init__(application_timeout=application_timeout, logger=logger)
 
     def _get_application_env(self):
         return {**super()._get_application_env(), **self.spark_env}
 
+
 class HiveApplicationRunner(ApplicationRunner):
-    def __init__(self,  application_timeout=60, logger=logging, principal='', database='', server='localhost', zk_nodes='', port=10001, query='show tables;', zookeeper=False):
+    def __init__(self, application_timeout=60, logger=logging, principal='', database='', server='localhost',
+                 zk_nodes='', port=10001, query='show tables;', zookeeper=False):
         if zookeeper:
-           self.url="jdbc:hive2://{0}/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2".format(zk_nodes)
+            self.url = "jdbc:hive2://{0}/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2".format(
+                zk_nodes)
         else:
-            self.url = "jdbc:hive2://{0}:{1}/default;transportMode=http;httpPath=cliservice;principal={2}".format(server, port, principal)
+            self.url = "jdbc:hive2://{0}:{1}/default;transportMode=http;httpPath=cliservice;principal={2}".format(
+                server, port, principal)
         self.query = query
         self.database = database
         super().__init__(application_timeout=application_timeout, logger=logger)
 
 
 class MrApplicationRunner(ApplicationRunner):
-
     def __init__(self, logger=logging):
         super().__init__(application_timeout=120, logger=logger)
-

@@ -18,4 +18,3 @@ class MrPiRunner(runner.MrApplicationRunner):
         if match is None:
             self.logger.error("Calculating PI with mr-submit returned wrong output. Output: {0}".format(output))
             raise MrRequestError("Calculating PI with mr-submit returned wrong output.")
-

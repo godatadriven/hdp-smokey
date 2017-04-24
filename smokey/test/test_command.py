@@ -6,7 +6,6 @@ import command.command as command
 
 
 class TestCommand(unittest.TestCase):
-
     def setUp(self):
         self.command = command.Command('localhost', logging)
 

@@ -1,9 +1,6 @@
 import core.base as base
-from hbase.hbase_verifier import HbaseVerifier
 from hdfs.hdfs_verifiers import HdfsVerifier, HdfsMrVerifier, HdfsSparkVerifier
 from hive.hive_verifier import HiveVerifier
-from kafka.kafka_smoketest import KafkaVerifier
-from knox.knox_smoketest import KnoxVerifier
 from yarn.yarn_resourcemanager_smoketest import YarnResourceManagerVerifier
 
 

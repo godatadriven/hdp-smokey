@@ -8,7 +8,7 @@ class HdfsVerifier(verification.Verifier):
         super().__init__(logger)
         self.ambari = ambari
         self.filename = "/user/smoketest/hdfs_smoketest/{0}".format(filename)
-        self.filesize=filesize
+        self.filesize = filesize
 
     def verify(self):
         self.logger.info("Verify HDFS status by writing a file and checking the md5sum")
@@ -74,5 +74,3 @@ class HdfsSparkVerifier(verification.Verifier):
         except runner.SparkRequestError as e:
             self.logger.error("Spark HdfsTest runner status NOT OK!!")
             raise verification.VerificationError(e)
-
-
